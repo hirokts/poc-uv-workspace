@@ -1,0 +1,21 @@
+version: "3.9"
+
+services:
+  api:
+    build:
+      context: .
+      dockerfile: packages/api/Dockerfile
+    image: ws-test-api
+    ports:
+      - "8000:8000"
+    environment:
+      ENV: dev
+    restart: unless-stopped
+
+  worker:
+    build:
+      context: .
+      dockerfile: packages/worker/Dockerfile
+    volumes:
+      - ./tmp:/tmp
+    restart: unless-stopped
